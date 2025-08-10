@@ -1,0 +1,19 @@
+apply plugin: "java-library"
+
+dependencies {
+    api "org.jcommander:jcommander:2.0"
+    api "org.slf4j:slf4j-simple:2.0.17"
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            artifactId = 'shoehorn-core'
+
+            from components.java
+        }
+    }
+}
+//signing {
+//    sign publishing.publications.maven
+//}

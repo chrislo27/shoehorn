@@ -1,0 +1,19 @@
+apply plugin: "java-library"
+
+dependencies {
+    final var javalinVersion = "6.7.0"
+    api "io.javalin:javalin:$javalinVersion"
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            artifactId = 'shoehorn-webserver'
+
+            from components.java
+        }
+    }
+}
+//signing {
+//    sign publishing.publications.maven
+//}

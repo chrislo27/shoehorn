@@ -1,0 +1,6 @@
+rootProject.name = 'shoehorn'
+
+include 'core'
+include 'di'
+include 'json'
+include 'webserver'

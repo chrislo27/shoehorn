@@ -1,0 +1,57 @@
+buildscript {
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+allprojects {
+    apply plugin: "maven-publish"
+    apply plugin: "signing"
+
+    group = 'com.swingnosefrog.shoehorn'
+    version = '0.1.0'
+
+    repositories {
+        mavenCentral()
+    }
+    
+    if (System.getenv("JITPACK") == "true") {
+        // Jitpack generates the wrong Gradle .module data and causes missing native dependencies (classifiers).
+        // https://github.com/jitpack/jitpack.io/issues/4476
+        tasks.withType(GenerateModuleMetadata).configureEach {
+            enabled = false
+        }
+    }
+}
+
+
+//#region Root project only
+apply plugin: "java-platform"
+
+dependencies {
+    constraints {
+        api project(":core")
+        api project(":di")
+        api project(":json")
+        api project(":webserver")
+    }
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            artifactId = 'shoehorn'
+
+            from components.javaPlatform
+        }
+    }
+}
+//signing {
+//    sign publishing.publications.maven
+//}
+
+//#endregion
