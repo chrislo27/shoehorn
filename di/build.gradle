@@ -1,5 +1,3 @@
-apply plugin: "java-library"
-
 dependencies {
     final var kodeinVersion = "7.26.1"
     api "org.kodein.di:kodein-di:$kodeinVersion"
@@ -10,11 +8,11 @@ publishing {
     publications {
         maven(MavenPublication) {
             artifactId = 'shoehorn-di'
+            pom {
+                description = "The dependency injection (DI) subproject of shoehorn"
+            }
 
             from components.java
         }
     }
 }
-//signing {
-//    sign publishing.publications.maven
-//}

@@ -8,7 +8,7 @@ buildscript {
     }
 }
 
-allprojects {
+allprojects { proj ->
     apply plugin: "maven-publish"
     apply plugin: "signing"
 
@@ -18,13 +18,66 @@ allprojects {
     repositories {
         mavenCentral()
     }
+
+    // Default POM attributes
+    publishing {
+        repositories {
+            maven {
+                url = uri(layout.buildDirectory.dir(".m2-temp/"))
+                name = "TempLocal"
+            }
+        }
+        publications {
+            maven(MavenPublication) {
+                pom {
+                    name = "${group}:${proj.getName()}"
+                    description = "The ${proj.getName()} subproject of shoehorn"
+                    url = "https://github.com/chrislo27/shoehorn"
+                    licenses {
+                        license {
+                            name = 'The Apache License, Version 2.0'
+                            url = 'https://www.apache.org/licenses/LICENSE-2.0.txt'
+                        }
+                    }
+                    developers {
+                        developer {
+                            id = 'swingnosefrog'
+                            name = 'Chris'
+                            email = 'chrislo27@users.noreply.github.com'
+                            organization = "GitHub"
+                            organizationUrl = "https://github.com/chrislo27"
+                        }
+                    }
+                    scm {
+                        connection = 'scm:git:git://github.com/chrislo27/shoehorn.git'
+                        developerConnection = 'scm:git:ssh://github.com:chrislo27/shoehorn.git'
+                        url = 'https://github.com/chrislo27/shoehorn'
+                    }
+                }
+            }
+        }
+    }
     
+    signing {
+        useGpgCmd()
+        sign publishing.publications.maven
+    }
+
     if (System.getenv("JITPACK") == "true") {
         // Jitpack generates the wrong Gradle .module data and causes missing native dependencies (classifiers).
         // https://github.com/jitpack/jitpack.io/issues/4476
         tasks.withType(GenerateModuleMetadata).configureEach {
             enabled = false
         }
+    }
+}
+
+subprojects {
+    apply plugin: "java-library"
+    
+    java {
+        withJavadocJar()
+        withSourcesJar()
     }
 }
 
@@ -47,11 +100,12 @@ publishing {
             artifactId = 'shoehorn'
 
             from components.javaPlatform
+            
+            pom {
+                description = "Shoehorn: A utility project to collate webserver microservice dependencies and utilities"
+            }
         }
     }
 }
-//signing {
-//    sign publishing.publications.maven
-//}
 
 //#endregion
