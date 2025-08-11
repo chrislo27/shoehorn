@@ -1,0 +1,17 @@
+dependencies {
+    api project(":database")
+    api "org.xerial:sqlite-jdbc:3.50.3.0"
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            artifactId = 'shoehorn-database-sqlite'
+            pom {
+                description = "The SQLite-specific database utility subproject of shoehorn"
+            }
+
+            from components.java
+        }
+    }
+}

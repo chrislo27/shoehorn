@@ -1,0 +1,16 @@
+dependencies {
+    api "com.zaxxer:HikariCP:7.0.0"
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            artifactId = 'shoehorn-database'
+            pom {
+                description = "The database utility subproject of shoehorn"
+            }
+
+            from components.java
+        }
+    }
+}

@@ -1,6 +1,8 @@
 rootProject.name = 'shoehorn'
 
 include 'core'
+include 'database'
+include 'database:sqlite'
 include 'di'
 include 'json'
 include 'webserver'

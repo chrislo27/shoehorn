@@ -13,7 +13,7 @@ allprojects { proj ->
     apply plugin: "signing"
 
     group = 'com.swingnosefrog.shoehorn'
-    version = '0.1.0'
+    version = '0.1.1'
 
     repositories {
         mavenCentral()
@@ -91,6 +91,8 @@ dependencies {
         api project(":di")
         api project(":json")
         api project(":webserver")
+        api project(":database")
+        api project(":database:sqlite")
     }
 }
 
