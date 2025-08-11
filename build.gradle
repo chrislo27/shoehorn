@@ -23,7 +23,7 @@ allprojects { proj ->
     publishing {
         repositories {
             maven {
-                url = uri(layout.buildDirectory.dir(".m2-temp/"))
+                url = uri(rootProject.file(".m2-temp/"))
                 name = "TempLocal"
             }
         }
