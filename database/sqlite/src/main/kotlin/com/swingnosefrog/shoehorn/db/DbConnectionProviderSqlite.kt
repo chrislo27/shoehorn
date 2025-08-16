@@ -17,7 +17,7 @@ open class DbConnectionProviderSqlite(val file: File) : IDbConnectionProviderSql
     private val hikariProps = Properties().apply {
         put("dataSource.logWriter", PrintWriter(System.out))
     }
-    private val dataSource: HikariDataSource = HikariDataSource(HikariConfig(hikariProps).apply {
+    protected open val dataSource: HikariDataSource = HikariDataSource(HikariConfig(hikariProps).apply {
         jdbcUrl = "jdbc:sqlite:${file.absolutePath}"
         this.poolName = "DbConnectionProviderSqlite-${file.nameWithoutExtension}"
         this.maximumPoolSize = 4
