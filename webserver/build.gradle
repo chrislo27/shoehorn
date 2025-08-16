@@ -1,4 +1,6 @@
 dependencies {
+    api project(":core")
+    
     final var javalinVersion = "6.7.0"
     api "io.javalin:javalin:$javalinVersion"
 }
