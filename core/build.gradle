@@ -1,5 +1,5 @@
 dependencies {
-    api "org.jcommander:jcommander:2.0"
+    api "org.jcommander:jcommander:3.0"
     api "org.slf4j:slf4j-simple:2.0.17"
 }
 
